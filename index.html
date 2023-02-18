@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel And Angular</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+        integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lustria&amp;family=PT+Sans+Narrow:wght@400;700&amp;display=swap"
+        rel="stylesheet">
+</head>
+<link rel="stylesheet" href="./css/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row border mt-2 ml-1 mr-1 d-flex align-items-center shadow">
+            <div class="col-md-3 p-2 text-left">
+                <img src="https://oursblanc.tech/wp-content/uploads/2020/12/logolaravel-e1607524036663.png"
+                    height="80px" />
+
+            </div>
+            <div class="col-md-6 text-center">
+                <h2 class=" first-title">Crud App With Laravel and Angular</h2>
+            </div>
+            <div class="col-md-3 p-2 text-right">
+                <img src="./images/angular-logo.png" alt="" height="80px">
+
+            </div>
+
+        </div>
+        <div class="row mt-5 mb-2 ml-md-5 mr-md-5">
+            <div class="col-lg-12">
+                <p> Let's start creating the backend with <a target="_blank"
+                        href="https://laravel.com/docs/8.x/releases">Laravel</a> before adding the frontend with <a
+                        target="_blank" href="https://angular.io/">Angular</a>
+                </p>
+                <h2 class="Title">I-Install Laravel 8</h2>
+
+
+            </div>
+
+        </div>
+        <div class="row ml-md-5 mr-md-5">
+            <div class="col-lg-12">
+                <p>Open terminal further run below command to manifest a new laravel project, ignore this step if
+                    project is already installed</p>
+            </div>
+            <div class="col-lg-8">
+
+                <div class="cmd  " id="cmd-1">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">composer create-project laravel/laravel:^8.0 Larevel-8-Angular-Crud-App</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-1')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">II-Database Configuration</h2>
+                <p>This step explains how to make database connection by adding database name, username and password in
+                    .env config file of your project</p>
+
+            </div>
+            <div class="col-md-8">
+                <img src="./images/database_config.png" class="img-fluid">
+            </div>
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">III-Migration</h2>
+
+
+            </div>
+            <div class="col-lg-8">
+
+                <div class="cmd  " id="cmd-2">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">php artisan make:migration create_books_table</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-2')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <p>Edit the migration file and update the up() method</p>
+            </div>
+            <div class="col-lg-12">
+
+                <div class="cmd  " id="cmd-3">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">   &lt;?php
+
+                        use Illuminate\Database\Migrations\Migration;
+                        use Illuminate\Database\Schema\Blueprint;
+                        use Illuminate\Support\Facades\Schema;
+                    
+                        class CreateBooksTable extends Migration
+                        {
+                            /**
+                             * Run the migrations.
+                             *
+                             * @return    void
+                             */
+                            public function up()
+                            {
+                                Schema::create('books', function (Blueprint $table) {
+                                    $table->id();
+                                    $table->string('title');
+                                    $table->text('description');
+                                    $table->string('author');
+                                    $table->string('price');
+                                    $table->timestamps();
+                                });
+                            }
+                    
+                            /**
+                             * Reverse the migrations.
+                             *
+                             * @return    void
+                             */
+                            public function down()
+                            {
+                                Schema::dropIfExists('books');
+                            }
+                        }
+                                            </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-3')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <p>Then run the migration to create the table</p>
+
+            </div>
+            <div class="col-md-8">
+                <div class="cmd  " id="cmd-4">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">php artisan migrate</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-4')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-md-11">
+
+                <h2 class="Title">IV-Create CRUD Routes</h2>
+                <p>Open the <span class="text-danger font-weight-bold"> routes/web.php </span>file and define the
+                    following route:</p>
+
+
+            </div>
+            <div class="col-md-10">
+                <div class="cmd  " id="cmd-5">
+                    <pre class="pre-cmd  align-items-center pl-2">
+                        &lt;?php
+
+                        use Illuminate\Support\Facades\Route;
+                         <span class="text-success">
+                            /*
+                        |--------------------------------------------------------------------------
+                        | Web Routes
+                        |--------------------------------------------------------------------------
+                        
+                        */</span>
+                        
+                        Route::fallback(function () {
+                            return view('welcome');
+                        });
+                        </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-5')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+
+                <p>
+                    Next, you need to open the <span class="text-danger font-weight-bold">routes/api.php</span> file and
+                    set the CRUD API
+                    routes as given below
+
+                </p>
+                <div class="cmd  " id="cmd-6">
+                    <pre class="pre-cmd  align-items-center pl-2">
+                        &lt;?php
+
+                        use Illuminate\Http\Request;
+                        use Illuminate\Support\Facades\Route;
+                        
+                         <span class="text-success">
+                            /*
+                        |--------------------------------------------------------------------------
+                        | API Routes
+                        |--------------------------------------------------------------------------
+                        
+                        */</span>
+                        
+                        Route::middleware('api')->group(function () {
+                            Route::get('allbooks', [App\Http\Controllers\BookController::class,'index']);
+                            Route::get('book{id}', [App\Http\Controllers\BookController::class,'show']);
+                            Route::post('update{id}', [App\Http\Controllers\BookController::class,'update']);
+                            Route::post('store', [App\Http\Controllers\BookController::class,'store']);
+                            Route::delete('delete{id}', [App\Http\Controllers\BookController::class,'destroy']);
+                        });
+                        </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-6')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">V- Add Controller and Model</h2>
+
+
+            </div>
+            <div class="col-md-8">
+                <div class="cmd  " id="cmd-7">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">php artisan make:controller BookController --resource --model=Book</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-7')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+
+
+            </div>
+            <div class="col-md-10">
+                <p>Go to the path:<span class="text-danger font-weight-bold">
+                        app/Http/Controllers/BookController.php</span> And update
+                    the code as follows</p>
+                <div class="cmd  " id="cmd-8">
+                    <pre class="pre-cmd  align-items-center pl-2">
+   &lt;?php
+  namespace App\Http\Controllers;
+
+   use App\Models\Book;
+   use Illuminate\Http\Request;
+                        
+class BookController extends Controller
+{
+
+  public function index()
+ {
+ $books = Book::all();
+ return response()->json($books);
+ }
+                        
+ public function store(Request $request)
+ {
+ $request->validate([
+ 'title' => 'required',
+ 'author' => 'required',
+ 'price' => 'required',
+ ]);
+ Book::create($request->all());
+ return response()->json('Book created!');
+ }
+                        
+public function show($id)
+ {
+ $book = Book::find($id);
+ return response()->json($book);
+ }
+
+public function update(Request $request, $id)
+ {
+ $request->validate([
+ 'title' => 'required',
+ 'author' => 'required',
+ 'price' => 'required',
+ ]);
+ $book = Book::find($id);
+ $book->update($request->all());
+ return response()->json('Book updated!');
+ }
+                        
+ public function destroy($id)
+ {
+ Book::find($id)->delete();
+ return response()->json('Book deleted!');
+ }          
+}
+                        </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-8')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <p>Define Book table values in <span class="text-danger font-weight-bold ">app/Models/Book.php</span>
+                </p>
+
+                <div class="cmd  " id="cmd-9">
+                    <pre class="pre-cmd  align-items-center pl-2">
+&lt;?php
+namespace App\Models;
+        
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+    class Book extends Model
+             {
+                  use HasFactory;
+                     <span style="color: rgb(234, 255, 0);"> protected $fillable = 
+                        [
+                           'title',
+                           'description',
+                           'author',
+                           'price',
+                        ];
+                    </span>
+             }
+                        </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-9')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11 mb-3">
+                <h2 class=" font-weight-bold text-success">VI: Install Angular and Create the Frontend Application</h2>
+            </div>
+            <div class="col-lg-11">
+                <h2 class="Title">VI-1:Install Angular</h2>
+            </div>
+            <div class="col-lg-8">
+
+                <div class="cmd  " id="cmd-10">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">npm install -g @angular/cli@13</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-10')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <div class="cmd  " id="cmd-11">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng version</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-11')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-lg-11">
+                <h2 class="Title">VI-2:Create Application with Angular</h2>
+            </div>
+            <div class="col-lg-8">
+
+                <div class="cmd  " id="cmd-12">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng new frontend</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-12')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-lg-11">
+                <h2 class="Title">VI-2:Install Bootstrap</h2>
+            </div>
+            <div class="col-md-8">
+
+
+
+                <div class="cmd  " id="cmd-13">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">npm i Bootstrap@4.6.2</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-13')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <p>Alternatively, install bootstrap within the angular-cli.json file </p>
+
+                <div class="cmd  " id="cmd-14">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">"node_modules/bootstrap/dist/css/bootstrap.min.css",</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-14')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <img src="./images/bootstrapconfig.png" class="img-fluid">
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">VI-3: Create component</h2>
+
+
+            </div>
+            <div class="col-lg-7">
+                <div class="cmd  " id="cmd-c1">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng generate c Allbooks</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-c1')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <div class="cmd  " id="cmd-c2">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng generate c addbook</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-c2')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <div class="cmd  " id="cmd-c3">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng generate c editbook</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-c3')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <img src="/images/view.png" alt="">
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/allbooks.component.html
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-15">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+
+&lt;div&gt;
+&lt;h2 class="text-center"&gt;Books List&lt;/h2&gt;
+
+&lt;table class="table"&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;ID&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Price&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+        &lt;th&gt;Actions&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr *ngFor="let book of books" &gt;
+        &lt;td&gt;{{ book.id }}&lt;/td&gt;
+        &lt;td&gt;{{ book.title }}&lt;/td&gt;
+        &lt;td&gt;{{ book.price }}&lt;/td&gt;
+        &lt;td&gt;{{ book.description }}&lt;/td&gt;
+
+          &lt;td&gt;
+            &lt;a href="#" [routerLink]="['/', 'edit', book.id  ]" class="btn btn-primary"&gt;Edit&lt;/a&gt;
+            &lt;button type="button" (click)="deleteBook(book.id)" class="btn btn-danger"&gt;Delete&lt;/button&gt;
+          &lt;/td&gt;
+       
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-15')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/allbooks.component.ts
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-16">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+                        import { Component, OnInit } from '@angular/core';
+                        import { Book } from '../Books/book';
+                        import { BookService } from '../Books/book.service';
+                        
+                        @Component({
+                          selector: 'app-allbooks',
+                          templateUrl: './allbooks.component.html',
+                          styleUrls: ['./allbooks.component.css']
+                        })
+                        export class AllbooksComponent implements OnInit {
+                          books: Book[] = [];
+                          constructor(public bookservice:BookService) { }
+                        
+                          ngOnInit(): void {
+                             this.bookservice.getAll().subscribe((data: Book[])=&gt;{
+                              this.books = data;
+                              console.log(this.books);
+                            })
+                          }
+                          deleteBook(id:number){
+                            this.bookservice.delete(id).subscribe(res =&gt; {
+                              this.books = this.books.filter(item =&gt; item.id !== id);
+                              console.log('Book deleted successfully!');
+                         })
+                          }
+                        
+                        }
+                        
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-16')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/addbook.component.html
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-17">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+                        &lt;div class="row"&gt;
+                        &lt;div class="col-md-8 mx-auto"&gt;
+                          &lt;form [formGroup]="reactiveForm" #form="ngForm" (ngSubmit)="submit()"&gt;
+                            &lt;div class="form-row"&gt;
+                              &lt;label class=" font-weight-bolder"&gt;Title&lt;/label&gt;
+                              &lt;input class="form-control" type="text" id="title" name="title" formControlName="title"
+                              [class.is-invalid]="f.title.invalid && (f.title.dirty || f.title.touched)"&gt;
+                              &lt;div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="invalid-feedback"&gt;
+                                &lt;div *ngIf="f.title.errors?.['required']"&gt;
+                                  This field is required.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.title.errors?.['minlength']"&gt;
+                                  This field must have at least 1 character.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.title.errors?.['maxlength']"&gt;
+                                  This field must have at most 250 characters.
+                                &lt;/div&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="form-row"&gt;
+                              &lt;label class=" font-weight-bolder"&gt;Author&lt;/label&gt;
+                              &lt;input class="form-control" type="text" id="author" name="author" formControlName="author"
+                              [class.is-invalid]="f.author.invalid && (f.author.dirty || f.author.touched)"&gt;
+                              &lt;div *ngIf="f.author.invalid && (f.author.dirty || f.author.touched)" class="invalid-feedback"&gt;
+                                &lt;div *ngIf="f.author.errors?.['required']"&gt;
+                                  This field is required.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.author.errors?.['minlength']"&gt;
+                                  This field must have at least 1 character.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.author.errors?.['maxlength']"&gt;
+                                  This field must have at most 250 characters.
+                                &lt;/div&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="form-row"&gt;
+                              &lt;label class=" font-weight-bolder"&gt;Price&lt;/label&gt;
+                              &lt;input class="form-control" type="text" id="price" name="price" formControlName="price"
+                              [class.is-invalid]="f.price.invalid && (f.price.dirty || f.price.touched)"&gt;
+                              &lt;div *ngIf="f.price.invalid && (f.price.dirty || f.price.touched)" class="invalid-feedback"&gt;
+                                &lt;div *ngIf="f.price.errors?.['required']"&gt;
+                                  This field is required.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.price.errors?.['minlength']"&gt;
+                                  This field must have at least 1 character.
+                                &lt;/div&gt;
+                                &lt;div *ngIf="f.price.errors?.['maxlength']"&gt;
+                                  This field must have at most 250 characters.
+                                &lt;/div&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="form-row"&gt;
+                              &lt;label class=" font-weight-bolder"&gt;Description&lt;/label&gt;
+                              &lt;input class="form-control" type="text" id="description" name="description" formControlName="description"&gt;
+                      
+                            &lt;/div&gt;
+                            &lt;button class="btn btn-primary mt-5" type="submit" [disabled]="!reactiveForm.valid"&gt;Submit&lt;/button&gt;
+                      
+                      &lt;/form&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      
+                    
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-17')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/addbook.component.ts
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-18">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+                        import { Component, OnInit } from '@angular/core';
+                        import { Router } from '@angular/router';
+                        import {
+                          FormGroup,
+                          FormControl,
+                          Validators,
+                          AbstractControl,
+                        
+                        
+                        } from '@angular/forms';
+                        import { BookService } from '../Books/book.service';
+                        @Component({
+                          selector: 'app-addbook',
+                          templateUrl: './addbook.component.html',
+                          styleUrls: ['./addbook.component.css'],
+                        })
+                        export class AddbookComponent implements OnInit {
+                          reactiveForm!: FormGroup;
+                        
+                          constructor(public bookService: BookService, private router: Router) {}
+                        
+                          ngOnInit(): void {
+                            this.reactiveForm = new FormGroup({
+                              title: new FormControl('', [
+                                Validators.required,
+                                Validators.minLength(3),
+                                Validators.maxLength(250),
+                              ]),
+                              author: new FormControl('', [
+                                Validators.required,
+                              ]),
+                              price: new FormControl('', [
+                                Validators.required,
+                              ]),
+                              description: new FormControl('')
+                            });
+                        
+                          }
+                        
+                          get f(): { [key: string]: AbstractControl } {
+                            return this.reactiveForm.controls;
+                          }
+                          submit(){
+                            console.log(this.reactiveForm.value);
+                            this.bookService.create(this.reactiveForm.value).subscribe(res => {
+                                 console.log('Book created successfully!');
+                                 this.router.navigateByUrl('/');
+                            })
+                          }
+                        }
+                        
+
+                    
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-18')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/editbook.component.html
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-19">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+
+&lt;div class="row"&gt;
+&lt;div class="col-md-8 mx-auto"&gt;
+  &lt;form [formGroup]="reactiveForm" #form="ngForm" (ngSubmit)="submit()" *ngIf="book"&gt;
+    &lt;div class="form-row"&gt;
+      &lt;label class=" font-weight-bolder"&gt;Title&lt;/label&gt;
+      &lt;input class="form-control"  [(ngModel)]="book.title"  type="text" id="title" name="title" formControlName="title"
+      [class.is-invalid]="f.title.invalid && (f.title.dirty || f.title.touched)"&gt;
+      &lt;div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="invalid-feedback"&gt;
+        &lt;div *ngIf="f.title.errors?.['required']"&gt;
+          This field is required.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.title.errors?.['minlength']"&gt;
+          This field must have at least 1 character.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.title.errors?.['maxlength']"&gt;
+          This field must have at most 250 characters.
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+      &lt;label class=" font-weight-bolder"&gt;Author&lt;/label&gt;
+      &lt;input class="form-control" [(ngModel)]="book.author" type="text" id="author" name="author" formControlName="author"
+      [class.is-invalid]="f.author.invalid && (f.author.dirty || f.author.touched)"&gt;
+      &lt;div *ngIf="f.author.invalid && (f.author.dirty || f.author.touched)" class="invalid-feedback"&gt;
+        &lt;div *ngIf="f.author.errors?.['required']"&gt;
+          This field is required.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.author.errors?.['minlength']"&gt;
+          This field must have at least 1 character.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.author.errors?.['maxlength']"&gt;
+          This field must have at most 250 characters.
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+      &lt;label class=" font-weight-bolder"&gt;Price&lt;/label&gt;
+      &lt;input class="form-control" [(ngModel)]="book.price" type="text" id="price" name="price" formControlName="price"
+      [class.is-invalid]="f.price.invalid && (f.price.dirty || f.price.touched)"&gt;
+      &lt;div *ngIf="f.price.invalid && (f.price.dirty || f.price.touched)" class="invalid-feedback"&gt;
+        &lt;div *ngIf="f.price.errors?.['required']"&gt;
+          This field is required.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.price.errors?.['minlength']"&gt;
+          This field must have at least 1 character.
+        &lt;/div&gt;
+        &lt;div *ngIf="f.price.errors?.['maxlength']"&gt;
+          This field must have at most 250 characters.
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+      &lt;label class=" font-weight-bolder"&gt;Description&lt;/label&gt;
+      &lt;input class="form-control" [(ngModel)]="book.description" type="text" id="description" name="description" formControlName="description"&gt;
+
+    &lt;/div&gt;
+    &lt;button class="btn btn-primary mt-5" type="submit" [disabled]="!reactiveForm.valid"&gt;Submit&lt;/button&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+                    
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-19')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/editbook.component.ts
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-20">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+                        import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+                        import { Component, OnInit } from '@angular/core';
+                        import { BookService } from '../Books/book.service';
+                        import { ActivatedRoute, Router } from '@angular/router';
+                        import { Book } from '../Books/book';
+                        @Component({
+                          selector: 'app-editbook',
+                          templateUrl: './editbook.component.html',
+                          styleUrls: ['./editbook.component.css'],
+                        })
+                        export class EditbookComponent implements OnInit {
+                          reactiveForm!: FormGroup;
+                          id!: number;
+                          book!: Book;
+                          constructor(
+                            public bookservice: BookService,
+                            private router: Router,
+                            private route: ActivatedRoute
+                          ) {}
+                        
+                          ngOnInit(): void {
+                            this.id = this.route.snapshot.params['id'];
+                            this.bookservice.find(this.id).subscribe((data: Book) => {
+                              this.book = data;
+                            });
+                            this.reactiveForm = new FormGroup({
+                              title: new FormControl('', [
+                                Validators.required,
+                                Validators.minLength(3),
+                                Validators.maxLength(250),
+                              ]),
+                              author: new FormControl('', [Validators.required]),
+                              price: new FormControl('', [Validators.required]),
+                              description: new FormControl(''),
+                            });
+                          }
+                          submit() {
+                            console.log(this.reactiveForm.value);
+                            this.bookservice
+                              .update(this.id, this.reactiveForm.value)
+                              .subscribe((res) => {
+                                console.log('book updated successfully!');
+                                this.router.navigateByUrl('');
+                              });
+                          }
+                          get f(): { [key: string]: AbstractControl } {
+                            return this.reactiveForm.controls;
+                          }
+                        }
+                        
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-20')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">VI-4: Create routes</h2>
+
+
+            </div>
+            <div class="col-lg-11">
+
+                <h6 class="font-weight-bold text-info">
+                    src/app/app-routing.module.ts
+                </h6>
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="cmd  " id="cmd-21">
+                    <pre class="pre-cmd  align-items-center pl-2">
+                       import { NgModule } from '@angular/core';
+                            import { RouterModule, Routes } from '@angular/router';
+                            import { AllbooksComponent } from './allbooks/allbooks.component';
+                            import { EditbookComponent } from './editbook/editbook.component';
+                            import { AddbookComponent } from './addbook/addbook.component';
+                            
+                            const routes: Routes = [
+                              { path: '', component: AllbooksComponent },
+                              { path: 'edit/:id', component: EditbookComponent },
+                              { path: 'create', component: AddbookComponent },
+                              { path: '**', redirectTo: '', pathMatch: 'full' }
+                            ];
+                            
+                            @NgModule({
+                              imports: [RouterModule.forRoot(routes)],
+                              exports: [RouterModule]
+                            })
+                            export class AppRoutingModule { }
+                            
+                     </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title=""
+                        onclick="CopyToClipboard('cmd-21')" data-original-title="Copy to Clipboard">
+                        <i class="fa fa-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title">VI-5: Create interface
+                </h2>
+            </div>
+            <div class="col-lg-6">
+                <div class="cmd  " id="cmd-22">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng generate interface Books/book</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-22')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="cmd " id="cmd-23">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">
+                    export interface Book {
+                        id:number,
+                        title:string,
+                        author:string,
+                        price:string,
+                        description:string,
+                      }
+                      
+                </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-23')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-md-11">
+                <h2 class="Title">VI-6: Create Service
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <div class="cmd " id="cmd-24">
+                    <pre class="pre-cmd d-flex align-items-center pl-2">ng generate service Books/book</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-24')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+                <h6 class="font-weight-bold text-info">
+                    src/app/Books/book.service.ts
+                </h6>
+                <div class="cmd " id="cmd-25">
+                    <pre class="pre-cmd  align-items-center pl-2">
+            import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import {  Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { Book } from './book';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class BookService {
+  private apiURL = "http://localhost:8000/api/";
+ 
+  httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/json'
+     })
+  }
+  constructor(private httpClient: HttpClient) { }
+  getAll(): Observable<Book[]> {
+    return this.httpClient.get<Book[]>(this.apiURL+"allbooks")
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  create(book:Book): Observable<Book> {
+    return this.httpClient.post<Book>(this.apiURL+"store", JSON.stringify(book), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  find(id:number): Observable<Book> {
+    return this.httpClient.get<Book>(this.apiURL +"book"+ id)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  update(id:number, Book:Book): Observable<Book> {
+    return this.httpClient.post<Book>(this.apiURL +"update"+ id, JSON.stringify(Book), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  delete(id:number){
+    return this.httpClient.delete<Book>(this.apiURL +"delete"+ id, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  errorHandler(error:any) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
+}
+
+        </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-25')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+
+            <div class="col-md-11">
+                <h2 class="Title">VI-7: Configure App
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <h6 class="font-weight-bold text-info">
+                    src/app/app.module.ts
+                </h6>
+                <div class="cmd " id="cmd-26">
+                    <pre class="pre-cmd  align-items-center pl-2">
+                        import { NgModule } from '@angular/core';
+                        import { BrowserModule } from '@angular/platform-browser';
+                        import { HttpClientModule } from '@angular/common/http';
+                        import { AppRoutingModule } from './app-routing.module';
+                        import { AppComponent } from './app.component';
+                        import { AllbooksComponent } from './allbooks/allbooks.component';
+                        import { EditbookComponent } from './editbook/editbook.component';
+                        import { AddbookComponent } from './addbook/addbook.component';
+                        import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+                        
+                        @NgModule({
+                          declarations: [
+                            AppComponent,
+                            AllbooksComponent,
+                            EditbookComponent,
+                            AddbookComponent,
+                          ],
+                          imports: [
+                            BrowserModule,
+                            HttpClientModule,
+                            ReactiveFormsModule,
+                            FormsModule,
+                            AppRoutingModule
+                          ],
+                          providers: [],
+                          bootstrap: [AppComponent]
+                        })
+                        export class AppModule { }
+                        
+               </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-26')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h6 class="font-weight-bold text-info">
+                    src/app/app.component.html
+                </h6>
+                <div class="cmd " id="cmd-27">
+                    <pre class="pre-cmd  align-items-center pl-2">
+
+&lt;div class="container-fluid"&gt;
+&lt;nav class="navbar navbar-expand-lg navbar-light bg-light"&gt;
+    &lt;div class="collapse navbar-collapse"&gt;
+        &lt;div class="navbar-nav"&gt;
+            &lt;a routerLink="/" class="nav-item nav-link"&gt;Books List&lt;/a&gt;
+            &lt;a routerLink="/create" class="nav-item nav-link"&gt;Create Book&lt;/a&gt;
+          &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
+
+               </pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-27')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-11">
+
+                <h2 class="Title"> VII- Run CRUD application :</h2>
+
+                <p>To start the CRUD app, you need to run the two following commands respectively in two different
+                    terminals simultaneously:</p>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="cmd  " id="cmd-28">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">npm serve</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-28')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="cmd " id="cmd-29">
+                    <pre
+                        class="pre-cmd d-flex align-items-center pl-2">php artisan serve</pre>
+                    <button class="btn-copy" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+                        onclick="CopyToClipboard('cmd-29')">
+                        <i class="fa fa-clipboard"></i>
+                </div>
+              </div>
+        </div>
+        <div class="row mt-2 mb-3 ml-md-5 mr-md-5">
+            <div class="col-lg-12">
+                <p>Now you can open the below URL on your browser: <a href="http://localhost:4200/"
+                        target="_blank">http://localhost:4200/</a></p>
+
+            </div>
+
+            <a class="btn btn-primary mx-auto" target="_blank"
+                href="https://github.com/aymensmida/Crud-App-Laravel-Angular"><i class="fa fa-download"
+                    aria-hidden="true"></i> Download Code</a>
+
+
+        </div>
+
+    </div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+    crossorigin="anonymous"></script>
+<script src="./Js/app.js"></script>
+
+</html>
